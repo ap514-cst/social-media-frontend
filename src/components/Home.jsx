@@ -10,7 +10,7 @@ const Home = () => {
   const user = JSON.parse(localStorage.getItem("userInfo"));
 
   useEffect(() => {
-    fetch("http://localhost:2002/api/products/get")
+    fetch("https://social-media-backend-2-topf.onrender.com/api/products/get")
       .then((res) => res.json())
       .then((data) => {
         setProduct(data.products
