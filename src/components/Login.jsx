@@ -10,7 +10,7 @@ const Login = ({ setIsAuthenticated }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Add your authentication logic here
-    await axios.post("http://localhost:2002/api/user/login", {
+    await axios.post("https://social-media-backend-2-topf.onrender.com/api/user/login", {
       email: userEmail,
       password: password
     }).then((res) => {

@@ -14,7 +14,7 @@ const Register = () => {
   const handleSubmit =async (e) => {
     e.preventDefault();
     // Registration logic here
-   await axios.post("http://localhost:2002/api/user/register",{
+   await axios.post("https://social-media-backend-2-topf.onrender.com/api/user/register",{
 
       name:formData.username,
       email:formData.email,

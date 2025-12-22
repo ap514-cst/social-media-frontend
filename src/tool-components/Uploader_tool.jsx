@@ -26,7 +26,7 @@ const CreatePost = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:2002/api/products/post",
+        "https://social-media-backend-2-topf.onrender.com/api/products/post",
         formData,
         {
           headers: {
