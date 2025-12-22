@@ -110,7 +110,7 @@ const Login = ({ setIsAuthenticated }) => {
 
           <div className="mt-8 pt-6 border-t border-gray-700">
             <p className="text-center text-sm text-gray-400">
-              © 2024 hønhend. All rights reserved.
+              © 2024 GMGTNF. All rights reserved.
             </p>
           </div>
         </div>
