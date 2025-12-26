@@ -23,7 +23,7 @@ const Home = () => {
       )
 
   }, [])
-  console.log(product);
+ 
 
 
 
