@@ -189,7 +189,7 @@ const DashboardLayout = ({ setIsAuthenticated }) => {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <span className="hidden sm:inline text-sm font-medium">{user.User.name}</span>
+                  <span className="hidden sm:inline text-sm font-medium"></span>
                 </button>
 
                 {/* Dropdown Menu */}
