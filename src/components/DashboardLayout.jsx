@@ -324,10 +324,7 @@ const DashboardLayout = ({ setIsAuthenticated }) => {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div>
-                    <p className="font-semibold">{user.name}</p>
-                    <p className="text-sm text-gray-500">{user.email}</p>
-                  </div>
+                 
                 </Link>
               </div>
 
