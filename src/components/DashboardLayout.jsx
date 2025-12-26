@@ -23,7 +23,7 @@ import {
 } from '@heroicons/react/24/outline';
 
 const DashboardLayout = ({ setIsAuthenticated }) => {
-    const user = JSON.parse(localStorage.getItem("userInfo"));
+    const user = JSON.parse(localStorage.getItem("user"));
   
   const location = useLocation();
   const navigate = useNavigate();
@@ -208,7 +208,7 @@ const DashboardLayout = ({ setIsAuthenticated }) => {
                         />
                       </div>
                       <div>
-                        <p className="font-semibold">Somak Ray</p>
+                        <p className="font-semibold">{user.name}</p>
                         <p className="text-sm text-gray-500">See your profile</p>
                       </div>
                     </Link>
@@ -256,8 +256,8 @@ const DashboardLayout = ({ setIsAuthenticated }) => {
                   />
                 </div>
                 <div>
-                  <p className="font-semibold">{user.User.name}</p>
-                  <p className="text-sm text-gray-500">{user.User.email}</p>
+                  <p className="font-semibold">{user.name}</p>
+                  <p className="text-sm text-gray-500">{user.email}</p>
                 </div>
               </Link>
             </div>
@@ -325,8 +325,8 @@ const DashboardLayout = ({ setIsAuthenticated }) => {
                     />
                   </div>
                   <div>
-                    <p className="font-semibold">Somak Ray</p>
-                    <p className="text-sm text-gray-500">@somakray</p>
+                    <p className="font-semibold">{user.name}</p>
+                    <p className="text-sm text-gray-500">{user.email}</p>
                   </div>
                 </Link>
               </div>
