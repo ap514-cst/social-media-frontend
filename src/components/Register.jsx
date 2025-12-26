@@ -9,10 +9,12 @@ const Register = () => {
     password: '',
     
   });
+  const [loading,setLoading]=useState(false)
   const navegate=useNavigate()
 
   const handleSubmit =async (e) => {
     e.preventDefault();
+    setLoading(true)
     // Registration logic here
    await axios.post("https://social-media-backend-2-topf.onrender.com/api/user/register",{
 
@@ -24,7 +26,9 @@ const Register = () => {
       if(!res){
         return alert("registration failed")
       }
+      
       else{
+        setLoading(false)
         alert("registration successful");
         localStorage.setItem("userInfo",JSON.stringify(res.data));
         navegate("/login")
@@ -75,6 +79,7 @@ const Register = () => {
             Register
           </button>
         </form>
+        {loading && <p className='text-white text-center'>Loading..</p>}
         <p className="mt-4 text-gray-400">
           Already have an account? <Link to="/login" className="text-cyan-400">Login</Link>
         </p>

@@ -5,10 +5,11 @@ import axios from "axios";
 const Login = ({ setIsAuthenticated }) => {
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+  const [loading,setLoading]=useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
     // Add your authentication logic here
     await axios.post("https://social-media-backend-2-topf.onrender.com/api/user/login", {
       email: userEmail,
@@ -17,6 +18,7 @@ const Login = ({ setIsAuthenticated }) => {
       if (!res) {
         return alert("login failed")
       } else {
+        setLoading(false)
         alert("login successful")
         setIsAuthenticated(true);
       }
@@ -107,6 +109,7 @@ const Login = ({ setIsAuthenticated }) => {
               </Link>
             </p>
           </div>
+          {loading && <p className='text-white text-center'>loading..</p>}
 
           <div className="mt-8 pt-6 border-t border-gray-700">
             <p className="text-center text-sm text-gray-400">

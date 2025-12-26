@@ -7,7 +7,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true)
 
 
-  const user = JSON.parse(localStorage.getItem("userInfo"));
+ 
 
   useEffect(() => {
     fetch("https://social-media-backend-2-topf.onrender.com/api/products/get")
@@ -38,7 +38,7 @@ const Home = () => {
             <div className=' flex m-2  '>
               <span className='bg-white w-9 rounded-2xl h-10' ></span>
               <div className=' pl-4 '>
-                <span className=' text-white'>{user.User.name}</span>
+                <span className=' text-white'></span>
                 <p className='text-gray-500 text-sm '></p>
               </div>
             </div>
