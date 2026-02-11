@@ -10,7 +10,8 @@ import Settings from './tool-components/Settings';
 import Uploader_tool  from './tool-components/Uploader_tool';
 import Profile_tool from "./tool-components/Profile_tool"
 import Logout_message_page from './components/Logout_message_page';
-import UserProfile from './tool-components/userProfile';
+//import UserProfile from './tool-components/UserProfile';
+import UserProfile from './tool-components/User_Profile';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
