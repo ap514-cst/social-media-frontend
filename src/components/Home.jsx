@@ -35,7 +35,7 @@ const Home = () => {
 
 
   useEffect(() => {
-    fetch("http://localhost:2002/api/products/get")
+    fetch("https://social-media-backend-2-topf.onrender.com/api/products/get")
       .then((res) => res.json())
       .then((data) => {
         setProduct(data.products);
@@ -50,7 +50,7 @@ const Home = () => {
   //like api define
   const likePost = (id) => {
     playLikeSound()
-    fetch("http://localhost:2002/api/user/likes", {
+    fetch("https://social-media-backend-2-topf.onrender.com/api/user/likes", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -80,7 +80,7 @@ const Home = () => {
   //dislike api define..
 
   const DislikePost = (id) => {
-    fetch("http://localhost:2002/api/user/dislikes", {
+    fetch("https://social-media-backend-2-topf.onrender.com/api/user/dislikes", {
       method: "put",
       headers: {
         "Content-Type": "application/json",
@@ -115,7 +115,7 @@ const Home = () => {
     console.log("text", text);
 
     try {
-      fetch("http://localhost:2002/api/user/comment", {
+      fetch("https://social-media-backend-2-topf.onrender.com/api/user/comment", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -149,7 +149,7 @@ const Home = () => {
 
   const deletedComment = (postId, commentId) => {
     try {
-      fetch("http://localhost:2002/api/user/deletecomment", {
+      fetch("https://social-media-backend-2-topf.onrender.com/api/user/deletecomment", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

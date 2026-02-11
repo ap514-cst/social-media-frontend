@@ -11,7 +11,7 @@ const UserProfile = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:2002/api/user/userProfile/${id}`, {
+    fetch(`https://social-media-backend-2-topf.onrender.com/api/user/userProfile/${id}`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token")
       }

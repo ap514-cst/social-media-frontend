@@ -21,7 +21,7 @@ const Profile_tool = () => {
   };
 
   useEffect(() => {
-    fetch('http://localhost:2002/api/user/profile', {
+    fetch('https://social-media-backend-2-topf.onrender.com/api/user/profile', {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token")
       }

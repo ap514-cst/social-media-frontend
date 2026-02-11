@@ -16,7 +16,7 @@ const Login = ({ setIsAuthenticated }) => {
   try {
     const res = await fetch(
      // "https://social-media-backend-2-topf.onrender.com/api/user/login",
-     " http://localhost:2002/api/user/login",
+     " https://social-media-backend-2-topf.onrender.com/api/user/login",
       {
         method: "POST",
         headers: {

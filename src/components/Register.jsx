@@ -18,8 +18,7 @@ const Register = () => {
 
     try {
       const res = await axios.post(
-        //"https://social-media-backend-2-topf.onrender.com/api/user/register",
-        " http://localhost:2002/api/user/register",
+        "https://social-media-backend-2-topf.onrender.com/api/user/register",
         {
           name: formData.username,
           email: formData.email,
