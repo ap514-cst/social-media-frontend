@@ -272,7 +272,7 @@ const Home = () => {
 
                   </button>)
               }
-              <span>{file.likes.length} Likes</span>
+              <span>{file.likes?.length || 0} Likes</span>
 
 
 
@@ -284,7 +284,7 @@ const Home = () => {
                   className="text-xl cursor-pointer" />
 
               </button>
-              <span>{file.comments.length} Comment</span>
+              <span>{file.comments?.length || 0} Comment</span>
             </div>
 
           </div>
