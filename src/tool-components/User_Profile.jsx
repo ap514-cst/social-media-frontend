@@ -58,7 +58,7 @@ const User_Profile = () => {
 
           <div>
             <h2 className="text-2xl font-bold">
-              {user[0]?.postedBy?.name}
+              {posts[0]?.postedBy?.name}
             </h2>
             <p className="text-gray-500 text-sm">
               {posts.length} Posts
