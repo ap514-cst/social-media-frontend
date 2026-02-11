@@ -59,7 +59,7 @@ const CreatePost = () => {
       
       
 
-      fetch("https://social-media-backend-2-topf.onrender.com/api/products/post", {
+      fetch("https://social-media-backend-4-67g5.onrender.com/api/products/post", {
         method: "post",
         headers: {
           "Content-Type": "application/json",

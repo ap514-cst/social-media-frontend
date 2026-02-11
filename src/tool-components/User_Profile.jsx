@@ -11,7 +11,7 @@ const User_Profile = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`https://social-media-backend-2-topf.onrender.com/api/user/userProfile/${id}`, {
+    fetch(`https://social-media-backend-4-67g5.onrender.com/api/user/userProfile/${id}`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token")
       }
@@ -58,7 +58,7 @@ const User_Profile = () => {
 
           <div>
             <h2 className="text-2xl font-bold">
-              {posts[0]?.postedBy?.name}
+              {user[0]?.postedBy?.name}
             </h2>
             <p className="text-gray-500 text-sm">
               {posts.length} Posts
