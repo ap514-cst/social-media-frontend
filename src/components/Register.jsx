@@ -18,7 +18,7 @@ const Register = () => {
 
     try {
       const res = await axios.post(
-        "https://social-media-backend-2-topf.onrender.com/api/user/register",
+        "https://social-media-backend-4-67g5.onrender.com/api/user/register",
         {
           name: formData.username,
           email: formData.email,

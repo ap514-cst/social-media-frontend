@@ -21,7 +21,7 @@ const Profile_tool = () => {
   };
 
   useEffect(() => {
-    fetch('https://social-media-backend-2-topf.onrender.com/api/user/profile', {
+    fetch('https://social-media-backend-4-67g5.onrender.com/api/user/profile', {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token")
       }
@@ -48,7 +48,7 @@ const Profile_tool = () => {
    
 
     try {
-      const res=await fetch(`http://localhost:2002/api/products/delete/${deleteId}`,{
+      const res=await fetch(`https://social-media-backend-4-67g5.onrender.com/api/products/delete/${deleteId}`,{
         method:"DELETE",
         headers:{
            Authorization: "Bearer " + localStorage.getItem("token")
