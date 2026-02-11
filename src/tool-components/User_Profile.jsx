@@ -3,11 +3,11 @@ import { FaUserCircle } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { format } from "timeago.js";
 
-const UserProfile = () => {
+const User_Profile = () => {
 
-    const {id}=useParams();
+  const { id } = useParams();
   const [posts, setPosts] = useState([]);
-  const [user,setUser]=useState(null)
+  const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -38,9 +38,9 @@ const UserProfile = () => {
 
       {/* 🔵 Cover Photo */}
       <div className="h-52 bg-gradient-to-r from-blue-600 to-indigo-700 relative">
-        
+
         {/* Avatar */}
-       
+
         <div className="absolute -bottom-14 left-6">
           <div className="w-28 h-28 rounded-full bg-white p-1 shadow-lg">
             <div className="w-full h-full rounded-full bg-gray-300 flex items-center justify-center text-5xl text-gray-600">
@@ -48,7 +48,7 @@ const UserProfile = () => {
             </div>
           </div>
         </div>
-       
+
 
       </div>
 
@@ -65,7 +65,7 @@ const UserProfile = () => {
             </p>
           </div>
 
-          
+
 
         </div>
 
@@ -86,8 +86,8 @@ const UserProfile = () => {
           <div className="md:col-span-2 space-y-5">
 
             {posts.map(post => (
-              <div 
-                key={post._id} 
+              <div
+                key={post._id}
                 className="bg-white rounded-xl shadow overflow-hidden"
               >
 
@@ -118,9 +118,9 @@ const UserProfile = () => {
                 {/* Image */}
                 {post.image && (
                   <div className="w-full max-h-[420px] overflow-hidden">
-                    <img 
-                      src={post.image} 
-                      className="w-full object-cover hover:scale-105 transition-transform duration-300" 
+                    <img
+                      src={post.image}
+                      className="w-full object-cover hover:scale-105 transition-transform duration-300"
                       alt="post"
                     />
                   </div>
@@ -137,4 +137,4 @@ const UserProfile = () => {
   );
 };
 
-export default UserProfile;
+export default User_Profile;
