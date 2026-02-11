@@ -10,6 +10,7 @@ import Settings from './tool-components/Settings';
 import Uploader_tool  from './tool-components/Uploader_tool';
 import Profile_tool from "./tool-components/Profile_tool"
 import Logout_message_page from './components/Logout_message_page';
+import UserProfile from './tool-components/userProfile';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -49,8 +50,9 @@ function App() {
             <Route path="settings" element={<Settings />} />
             <Route path='upload' element={<Uploader_tool />} />
             <Route path='profile' element={<Profile_tool />} />
+            <Route path='profile/:id' element={<UserProfile/>}/>
             <Route path="logout_message" element={<Logout_message_page/>}/>
-          </Route>
+          </Route>  
         </Routes>
       </div>
     </Router>

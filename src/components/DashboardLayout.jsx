@@ -24,7 +24,8 @@ import {
 
 const DashboardLayout = ({ setIsAuthenticated }) => {
     const user = JSON.parse(localStorage.getItem("user"));
-  
+    
+    
   const location = useLocation();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -313,7 +314,7 @@ const DashboardLayout = ({ setIsAuthenticated }) => {
               
               <div className="p-4">
                 <Link 
-                  to="/profile" 
+                  to={`/profile/${user._id}`} 
                   className="flex items-center space-x-3 p-3 hover:bg-gray-100 rounded-lg"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
