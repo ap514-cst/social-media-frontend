@@ -197,7 +197,7 @@ const Home = () => {
 
 
         {/* 🔵 Feed */}
-        {!loading && product.map((file) => (
+        {!loading && Array.isArray(product) && product.map((file) => (
           <div
             key={file._id}
             className="bg-gray-800/80 backdrop-blur border border-gray-700 rounded-2xl shadow-lg mb-6 overflow-hidden"
