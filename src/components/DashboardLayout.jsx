@@ -1,8 +1,8 @@
 import { CgProfile } from "react-icons/cg"
 import { HiOutlineUpload } from "react-icons/hi";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
-import { 
+import {
   HomeIcon,
   UserGroupIcon,
   PlayCircleIcon,
@@ -23,14 +23,68 @@ import {
 } from '@heroicons/react/24/outline';
 
 const DashboardLayout = ({ setIsAuthenticated }) => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    
-    
+  const user = JSON.parse(localStorage.getItem("user"));
+
+
   const location = useLocation();
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  //search user 
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
+  const [show, setShow] = useState(false);
+
+  const wrapperRef = useRef(null);
+
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      if (query.length >= 2) {
+        searchUser();
+      } else {
+        setResults([]);
+      }
+    }, 400);
+
+    return () => clearTimeout(delay);
+  }, [query]);
+
+  const searchUser = async () => {
+    try {
+      const res = await axios.get(
+        `https://social-media-backend-4-67g5.onrender.com/api/user/search?search=${query}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        }
+      );
+
+      setResults(res.data);
+      setShow(true);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleClickUser = (id) => {
+    setShow(false);
+    setQuery("");
+    navigate(`/profile/${id}`);
+  };
+
+  // Close dropdown if click outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setShow(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const leftMenuItems = [
     { path: '/', name: 'Home', icon: <HomeIcon className="w-6 h-6 md:w-7 md:h-7" /> },
@@ -46,23 +100,16 @@ const DashboardLayout = ({ setIsAuthenticated }) => {
   const handleLogout = () => {
     localStorage.clear();
     navigate("/login")
-  
+
   };
-  const hanlderSearch=async(e)=>{
-    let key =e.target.value;
-    let result=await fetch(`http://localhost:2002/api/products/search/${key}`)
-    result=await result.json();
-    if(result){
-      
-    }
-  }
+
 
 
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
           onClick={() => setIsMobileMenuOpen(false)}
         />
@@ -75,7 +122,7 @@ const DashboardLayout = ({ setIsAuthenticated }) => {
             {/* Left: Logo & Mobile Menu */}
             <div className="flex items-center space-x-2 sm:space-x-4">
               {/* Mobile Menu Button */}
-              <button 
+              <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="lg:hidden p-2 rounded-md hover:bg-gray-100"
               >
@@ -85,28 +132,51 @@ const DashboardLayout = ({ setIsAuthenticated }) => {
                   <Bars3Icon className="w-6 h-6" />
                 )}
               </button>
-              
+
               {/* Logo */}
               <Link to="/" className="text-xl sm:text-2xl md:text-3xl font-bold text-blue-600">
                 <span >GMGTNF</span>
               </Link>
-              
+
               {/* Desktop Search */}
-              <div className="hidden lg:block relative">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <MagnifyingGlassIcon className="h-5 w-5 text-gray-400" />
-                </div>
+              <div className="relative w-64" ref={wrapperRef}>
                 <input
                   type="text"
-                  onChange={(e)=>{hanlderSearch}}
-                  placeholder="Search GMGTNF"
-                  className="w-56 lg:w-64 xl:w-80 pl-10 pr-4 py-2 bg-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white text-sm lg:text-base"
+                  placeholder="Search users..."
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  className="w-full px-3 py-2 rounded-full bg-gray-800 text-white outline-none"
                 />
+
+                {show && results.length > 0 && (
+                  <div className="absolute top-12 w-full bg-gray-900 rounded-xl shadow-lg z-50">
+                    {results.map((user) => (
+                      <div
+                        key={user._id}
+                        onClick={() => handleClickUser(user._id)}
+                        className="flex items-center gap-3 p-3 hover:bg-gray-700 cursor-pointer"
+                      >
+                        <img
+                          src={user.profilePic || "/default-avatar.png"}
+                          alt="avatar"
+                          className="w-8 h-8 rounded-full"
+                        />
+                        <div>
+                          <p className="text-white text-sm font-medium">{user.name}</p>
+                          <p className="text-gray-400 text-xs">{user.email}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
+
             </div>
 
+            
+
             {/* Mobile Search Button */}
-            <button 
+            <button
               onClick={() => setIsSearchOpen(true)}
               className="lg:hidden p-2 hover:bg-gray-100 rounded-full"
             >
@@ -117,7 +187,7 @@ const DashboardLayout = ({ setIsAuthenticated }) => {
             {isSearchOpen && (
               <div className="fixed inset-0 bg-white z-50 lg:hidden">
                 <div className="flex items-center p-4 border-b">
-                  <button 
+                  <button
                     onClick={() => setIsSearchOpen(false)}
                     className="mr-4"
                   >
@@ -142,11 +212,10 @@ const DashboardLayout = ({ setIsAuthenticated }) => {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`flex items-center justify-center w-16 xl:w-20 h-14 ${
-                    location.pathname === item.path
-                      ? 'text-blue-600 border-b-2 border-blue-600'
-                      : 'text-gray-500 hover:bg-gray-100'
-                  }`}
+                  className={`flex items-center justify-center w-16 xl:w-20 h-14 ${location.pathname === item.path
+                    ? 'text-blue-600 border-b-2 border-blue-600'
+                    : 'text-gray-500 hover:bg-gray-100'
+                    }`}
                 >
                   {item.icon}
                 </Link>
@@ -269,16 +338,13 @@ const DashboardLayout = ({ setIsAuthenticated }) => {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 ${
-                    location.pathname === item.path ? 'bg-blue-50 text-blue-600 border-l-4 border-blue-600' : ''
-                  }`}
+                  className={`flex items-center space-x-3 px-4 py-3 hover:bg-gray-50 ${location.pathname === item.path ? 'bg-blue-50 text-blue-600 border-l-4 border-blue-600' : ''
+                    }`}
                 >
-                  <div className={`p-1 rounded-md ${
-                    location.pathname === item.path ? 'bg-blue-100' : 'bg-gray-100'
-                  }`}>
-                    <div className={`w-5 h-5 sm:w-6 sm:h-6 ${
-                      location.pathname === item.path ? 'text-blue-600' : 'text-gray-600'
+                  <div className={`p-1 rounded-md ${location.pathname === item.path ? 'bg-blue-100' : 'bg-gray-100'
                     }`}>
+                    <div className={`w-5 h-5 sm:w-6 sm:h-6 ${location.pathname === item.path ? 'text-blue-600' : 'text-gray-600'
+                      }`}>
                       {item.icon}
                     </div>
                   </div>
@@ -296,14 +362,14 @@ const DashboardLayout = ({ setIsAuthenticated }) => {
             <div className="h-full overflow-y-auto">
               <div className="p-4 border-b">
                 <div className="flex items-center justify-between">
-                  <Link 
-                    to="/" 
+                  <Link
+                    to="/"
                     className="text-xl font-bold text-blue-600"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-    
+
                   </Link>
-                  <button 
+                  <button
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="p-2"
                   >
@@ -311,10 +377,10 @@ const DashboardLayout = ({ setIsAuthenticated }) => {
                   </button>
                 </div>
               </div>
-              
+
               <div className="p-4">
-                <Link 
-                  to={`/profile/${user._id}`} 
+                <Link
+                  to={`/profile/${user._id}`}
                   className="flex items-center space-x-3 p-3 hover:bg-gray-100 rounded-lg"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
@@ -325,7 +391,7 @@ const DashboardLayout = ({ setIsAuthenticated }) => {
                       className="w-full h-full object-cover"
                     />
                   </div>
-                 
+
                 </Link>
               </div>
 
@@ -334,11 +400,10 @@ const DashboardLayout = ({ setIsAuthenticated }) => {
                   <Link
                     key={item.path}
                     to={item.path}
-                    className={`flex items-center space-x-3 px-4 py-3 rounded-lg my-1 ${
-                      location.pathname === item.path 
-                        ? 'bg-blue-50 text-blue-600' 
-                        : 'hover:bg-gray-100'
-                    }`}
+                    className={`flex items-center space-x-3 px-4 py-3 rounded-lg my-1 ${location.pathname === item.path
+                      ? 'bg-blue-50 text-blue-600'
+                      : 'hover:bg-gray-100'
+                      }`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {item.icon}
@@ -433,11 +498,10 @@ const DashboardLayout = ({ setIsAuthenticated }) => {
             <Link
               key={item.path}
               to={item.path}
-              className={`flex flex-col items-center justify-center flex-1 h-full ${
-                location.pathname === item.path
-                  ? 'text-blue-600'
-                  : 'text-gray-500'
-              }`}
+              className={`flex flex-col items-center justify-center flex-1 h-full ${location.pathname === item.path
+                ? 'text-blue-600'
+                : 'text-gray-500'
+                }`}
             >
               <div className="w-6 h-6">
                 {item.icon}
