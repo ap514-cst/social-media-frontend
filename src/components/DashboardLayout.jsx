@@ -2,6 +2,7 @@ import { CgProfile } from "react-icons/cg"
 import { HiOutlineUpload } from "react-icons/hi";
 import { useState, useRef, useEffect } from "react";
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
+import axios from "axios";
 import {
   HomeIcon,
   UserGroupIcon,
