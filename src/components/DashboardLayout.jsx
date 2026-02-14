@@ -54,7 +54,7 @@ const DashboardLayout = ({ setIsAuthenticated }) => {
 
   const searchUser = async () => {
     try {
-     fetch(`https://social-media-backend-4-67g5.onrender.com/api/user/search?search=${query}`, {
+      fetch(`https://social-media-backend-4-67g5.onrender.com/api/search/searchUsers?search=${query}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -142,41 +142,81 @@ const DashboardLayout = ({ setIsAuthenticated }) => {
               </Link>
 
               {/* Desktop Search */}
-              <div className="relative w-64" ref={wrapperRef}>
+              {/* SEARCH BOX */}
+              <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md" ref={wrapperRef}>
+
                 <input
                   type="text"
                   placeholder="Search users..."
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  className="w-full px-3 py-2 rounded-full bg-gray-800 text-white outline-none"
+                  className="
+      w-full
+      px-4 py-2
+      rounded-full
+      bg-gray-100
+      text-gray-900
+      outline-none
+      border
+      focus:border-blue-500
+      text-sm sm:text-base
+    "
                 />
 
-                {show && results.length > 0 && (
-                  <div className="absolute top-12 w-full bg-gray-900 rounded-xl shadow-lg z-50">
+                {/* RESULT DROPDOWN */}
+                {show && Array.isArray(results) && results.length > 0 && (
+
+                  <div className="
+      absolute left-0 right-0
+      mt-2
+      bg-white
+      border
+      rounded-xl
+      shadow-lg
+      max-h-72
+      overflow-y-auto
+      z-50
+    ">
+
                     {results.map((user) => (
+
                       <div
                         key={user._id}
                         onClick={() => handleClickUser(user._id)}
-                        className="flex items-center gap-3 p-3 hover:bg-gray-700 cursor-pointer"
+                        className="
+            flex items-center gap-3
+            p-3
+            hover:bg-gray-100
+            cursor-pointer
+          "
                       >
+
+                        {/* PROFILE IMAGE */}
                         <img
-                          src={user.profilePic || "/default-avatar.png"}
-                          alt="avatar"
-                          className="w-8 h-8 rounded-full"
+                          src={user.profilePic || "https://i.pravatar.cc/100"}
+                          className="w-9 h-9 rounded-full object-cover"
                         />
-                        <div>
-                          <p className="text-white text-sm font-medium">{user.name}</p>
-                          <p className="text-gray-400 text-xs">{user.email}</p>
+
+                        {/* USER INFO */}
+                        <div className="truncate">
+                          <p className="font-medium text-sm">{user.name}</p>
+                          <p className="text-xs text-gray-500 truncate">{user.email}</p>
                         </div>
+
                       </div>
+
                     ))}
+
                   </div>
+
                 )}
+
               </div>
+
 
             </div>
 
-            
+
 
             {/* Mobile Search Button */}
             <button
