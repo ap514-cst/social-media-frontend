@@ -61,7 +61,7 @@ const DashboardLayout = ({ setIsAuthenticated }) => {
           Authorization: `Bearer ${localStorage.getItem("token")}`
         }
       })
-        .then(res => res.json())
+        .then(res => res.text())
         .then(data => {
           setResults(data);
           setShow(true);
