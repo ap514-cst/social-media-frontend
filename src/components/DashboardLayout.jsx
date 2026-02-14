@@ -54,17 +54,19 @@ const DashboardLayout = ({ setIsAuthenticated }) => {
 
   const searchUser = async () => {
     try {
-      const res = await axios.get(
-        `https://social-media-backend-4-67g5.onrender.com/api/user/search?search=${query}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`
-          }
+     fetch(`https://social-media-backend-4-67g5.onrender.com/api/user/search?search=${query}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`
         }
-      );
-
-      setResults(res.data);
-      setShow(true);
+      })
+        .then(res => res.json())
+        .then(data => {
+          setResults(data);
+          setShow(true);
+        })
+        .catch(err => console.log(err));
     } catch (err) {
       console.log(err);
     }
